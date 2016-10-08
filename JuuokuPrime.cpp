@@ -8,6 +8,7 @@ int _tmain(int argc, char* argv[])
 	LL result = 0;
 	LL currentTotal;
 	LL targetPrimeIndex;
+	time_t t;
 	LL m;
 	bool use_file = false;
 	int i;
@@ -21,6 +22,10 @@ int _tmain(int argc, char* argv[])
 	if (use_file){
 		filename = "test.dat";
 		Initialize_PrimeTable_in_File(filename);
+	}
+	else{
+		prime = new LL[MAX_LEN];
+		Initialize_PrimeTable_in_Memory(prime, MAX_LEN);
 	}
 	char input[100];
 	char* test;
@@ -66,35 +71,37 @@ int _tmain(int argc, char* argv[])
 		}
 		if (use_file){
 			m = Get_Last_Prime_from_File(filename) + 2;
-			currentTotal = Get_Length_of_PrimeList_from_File(filename);
+			t = clock();
 			while (1){
+				currentTotal = Get_Length_of_PrimeList_from_File(filename);
+				printf("progress: %u / %u\r", currentTotal + 2, targetPrimeIndex);
 				if (currentTotal >= targetPrimeIndex - 1){
 					result = Get_nth_Prime_from_File(filename, targetPrimeIndex - 2);
 					putchar('\n');
 					break;
 				}
-				printf("progress: %u / %u\r", currentTotal + 2, targetPrimeIndex);
 				Refresh_PrimeTable_in_File(filename, targetPrimeIndex, m);
-				currentTotal = Get_Length_of_PrimeList_from_File(filename);
 			}
 		}
 		else{
-			m = 547;
-			prime = new LL[targetPrimeIndex];
-			Initialize_PrimeTable_in_Memory(prime, targetPrimeIndex);
+			m = prime[prime[0]] + 2;
+			t = clock();
 			while (1){
-				Refresh_PrimeTable_in_Memory(prime, targetPrimeIndex, m);
 				currentTotal = prime[0];
 				printf("progress: %u / %u\r", currentTotal + 1, targetPrimeIndex);
 				if (currentTotal >= targetPrimeIndex - 1){
-					result = prime[prime[0]];
+					result = prime[targetPrimeIndex - 1];
 					putchar('\n');
 					break;
 				}
+				Refresh_PrimeTable_in_Memory(prime, targetPrimeIndex, m);
 			}
-			delete prime;
 		}
+		printf("%d ms\n", clock() - t);
 show:	printf("Prime[%u]=%u\n", targetPrimeIndex, result);
+	}
+	if (!use_file){
+		delete prime;
 	}
 	return 0;
 }

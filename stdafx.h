@@ -2,6 +2,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#define MAX_LEN 100000000
+
 #include <stdio.h>
 #include <tchar.h>
 #include <string.h>
