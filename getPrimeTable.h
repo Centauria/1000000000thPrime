@@ -25,4 +25,4 @@ LL Get_nth_Prime_from_File(char* filename, LL index);
 int Refresh_PrimeTable_in_File(char* filename, LL target_index, LL &min);
 
 int Initialize_PrimeTable_in_Memory(LL* memory, LL len);
-int Refresh_PrimeTable_in_Memory(LL* memory, LL len, LL &min);
+int Refresh_PrimeTable_in_Memory(LL* memory, LL mem_len, LL &min);

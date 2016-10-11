@@ -74,7 +74,7 @@ int _tmain(int argc, char* argv[])
 			t = clock();
 			while (1){
 				currentTotal = Get_Length_of_PrimeList_from_File(filename);
-				printf("progress: %u / %u\r", currentTotal + 2, targetPrimeIndex);
+				printf("progress: %u / %u\r", currentTotal + 1, targetPrimeIndex);
 				if (currentTotal >= targetPrimeIndex - 1){
 					result = Get_nth_Prime_from_File(filename, targetPrimeIndex - 2);
 					putchar('\n');
