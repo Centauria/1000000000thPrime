@@ -171,6 +171,7 @@ int Refresh_PrimeTable_in_Memory(LL* memory, LL mem_len, LL &min){
 	LL p;
 	LL q;
 	LL len = memory[0];
+	const LL mem_len_1 = mem_len - 1;
 	LL len_buffer = len < MAX_LEN_PRIME_BUFFER ? len : MAX_LEN_PRIME_BUFFER;
 	if (len_buffer + len>mem_len){
 		len_buffer = 2 * (mem_len - len);
@@ -202,12 +203,13 @@ int Refresh_PrimeTable_in_Memory(LL* memory, LL mem_len, LL &min){
 	}
 	for (i = 0; i < len_buffer; i++){
 		if (buffer[i]){
-			memory[(++memory[0])] = min + i + i;
-			if (memory[0] == mem_len - 1){
+			memory[(++len)] = min + i + i;
+			if (len == mem_len_1){
 				break;
 			}
 		}
 	}
+	memory[0] = len;
 	min = max;
 	delete buffer;
 	return 0;
