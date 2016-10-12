@@ -17,7 +17,7 @@ int _tmain(int argc, char* argv[])
 			use_file = true;
 		}
 	}
-	char* filename = "test.dat";
+	char filename[] = {'t','e','s','t','.','d','a','t','\0'};
 	LL* prime = NULL;
 	if (use_file){
 		Initialize_PrimeTable_in_File(filename);
